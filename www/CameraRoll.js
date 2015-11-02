@@ -10,4 +10,8 @@ cameraRoll.saveToCameraRoll = function(imageBase64, successCallback, errorCallba
   exec(successCallback, errorCallback, "CameraRoll", "saveToCameraRoll", [imageBase64]);
 };
 
+cameraRoll.moveVideoToCameraRoll = function(videoUrl, successCallback, errorCallback, options) {
+    exec(successCallback, errorCallback, "CameraRoll", "moveVideoToCameraRoll", [videoUrl]);
+};
+
 module.exports = cameraRoll;

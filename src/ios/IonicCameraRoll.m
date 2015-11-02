@@ -39,6 +39,30 @@
   CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"saved"];
   [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
+
+- (void)moveVideoToCameraRoll:(CDVInvokedUrlCommand*)command
+{
+    //TODO use the Photos framework instead
+    NSLog(@"IonicCameraRoll moving file to camera roll...");
+
+    NSString* sourceUrl = [command.arguments objectAtIndex:0];
+
+    NSURL *movieUrl = [NSURL URLWithString:sourceUrl];
+
+    ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+    [library writeVideoAtPathToSavedPhotosAlbum:movieUrl completionBlock:^(NSURL *assetURL, NSError *error){
+        if(error) {
+            NSLog(@"IonicCameraRoll: Error on saving movie : %@", error);
+            CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:[error description]];
+            [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+        }
+        else {
+            NSLog(@"URL: %@", assetURL);
+            CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"saved"];
+            [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+        }
+    }];
+}
 /**
  * Get all the photos in the library.
  *

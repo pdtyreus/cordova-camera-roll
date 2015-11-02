@@ -30,7 +30,7 @@ In Javascript, you can do something like this:
 ```javascript
 
 // Quickly save a base-64 encoded data uri to the cameraroll.
-CamerRoll.saveToCameraRoll(base64String, function() {
+CameraRoll.saveToCameraRoll(base64String, function() {
 }, function(err) {
 });
 
@@ -43,8 +43,22 @@ CameraRoll.getPhotos(function(photo) {
   // This callback will be called for each photo in the roll. It's async, yo!
 });
 
+// Copy a video file from a local URL to the camera roll
+CameraRoll.moveVideoToCameraRoll(fileUrl, function() {
+}, function(err) {
+});
+
 ```
 
+Notes
+-----
+
+Moving a video to the camera roll can be useful in the case that an app downloads a video from a 
+remote URL using the FileTransfer plugin, but you would like the user to have access to the video
+in his or her camera roll for later viewing.
+
+`CameraRoll.moveVideoToCameraRoll` uses the `ALAssetsLibrary` framework which has been deprecated 
+in iOS 9.0. It works for now, but should probably be re-written using the `Photos` framework.
 
 TODO
 -----
